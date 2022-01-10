@@ -1,3 +1,5 @@
+using System.Text.Json;
+using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +30,23 @@ void ConfigureServices(IServiceCollection services)
 {
     services.AddRazorPages();
     services.AddControllers();
-    services.AddTransient<IProductService, JsonFileProductService>();
+
+    var jsonFilePath = Path.Combine(builder.Environment.WebRootPath, "data", "products.json");
+    var productService = new InMemoryProductService(LoadProducts(jsonFilePath));
+    services.AddSingleton<IProductService>(productService);
+
+    //services.AddTransient<IProductService, JsonFileProductService>();
+}
+
+IEnumerable<Product> LoadProducts(string jsonFilePath)
+{
+    using (var jsonFileReader = File.OpenText(jsonFilePath))
+    {
+        return JsonSerializer.Deserialize<Product[]>(jsonFileReader.ReadToEnd(),
+            new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+    }
 }
 
