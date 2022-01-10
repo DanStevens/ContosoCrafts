@@ -23,12 +23,14 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
+app.MapBlazorHub();
 
 app.Run();
 
 void ConfigureServices(IServiceCollection services)
 {
     services.AddRazorPages();
+    services.AddServerSideBlazor();
     services.AddControllers();
 
     var jsonFilePath = Path.Combine(builder.Environment.WebRootPath, "data", "products.json");
