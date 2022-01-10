@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace ContosoCrafts.WebSite.Services
 {
-    public class JsonFileProductService
+    public class JsonFileProductService : IProductService
     {
         public JsonFileProductService(IWebHostEnvironment webHostEnvironment)
         {

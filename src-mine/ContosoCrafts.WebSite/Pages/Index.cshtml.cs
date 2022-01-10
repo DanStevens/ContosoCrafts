@@ -8,11 +8,11 @@ namespace ContosoCrafts.WebSite.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private readonly JsonFileProductService _productService;
+        private readonly IProductService _productService;
 
         public IndexModel(
             ILogger<IndexModel> logger,
-            JsonFileProductService productService)
+            IProductService productService)
         {
             _logger = logger;
             _productService = productService;

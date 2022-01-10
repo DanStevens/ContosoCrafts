@@ -16,17 +16,18 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapControllers();
 
 app.Run();
 
 void ConfigureServices(IServiceCollection services)
 {
     services.AddRazorPages();
-    services.AddTransient<JsonFileProductService>();
+    services.AddControllers();
+    services.AddTransient<IProductService, JsonFileProductService>();
 }
+
